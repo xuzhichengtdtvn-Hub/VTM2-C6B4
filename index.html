@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商务洽谈：接受和成交复习（水墨风格）</title>
+    <style>
+        /* CSS 样式 - 水墨风格 */
+        body {
+            font-family: 'Georgia', 'KaiTi', 'SimSun', serif; /* 使用宋体或楷体营造古典感 */
+            background-color: #fcfcfc; /* 浅米色背景 */
+            color: #1a1a1a;
+            margin: 0;
+            padding: 30px;
+            /* 模拟宣纸纹理 */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="n" x="0" y="0"><feTurbulence baseFrequency="0.5" type="fractalNoise" numOctaves="3" result="t" /><feDiffuseLighting in="t" lighting-color="white" surfaceScale="1" result="l"><fePointLight x="50" y="50" z="60" /></feDiffuseLighting><feComposite in="SourceGraphic" in2="l" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" /></filter><rect width="100%" height="100%" filter="url(%23n)" fill="%23fcfcfc" /></svg>');
+            background-repeat: repeat;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border: 2px solid #5a5a5a; /* 边框模拟卷轴或画框 */
+            box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            font-size: 2.2em;
+            letter-spacing: 5px;
+            border-bottom: 2px dashed #a0a0a0;
+            padding-bottom: 15px;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-left: 5px solid #000; /* 模拟笔墨线条 */
+            border-radius: 0 8px 8px 0;
+            background-color: rgba(245, 245, 245, 0.7);
+        }
+        .section-title {
+            color: #000;
+            font-size: 1.6em;
+            font-weight: bold;
+            margin-top: 0;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #777;
+        }
+        /* 题目和输入样式 */
+        .question-item {
+            margin-bottom: 20px;
+            padding: 10px 0;
+            line-height: 1.8;
+            border-bottom: 1px dotted #ccc;
+        }
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .options label {
+            display: inline-block;
+            margin-right: 20px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border: 1px solid transparent;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        .options label:hover {
+            background-color: rgba(0, 0, 0, 0.05); /* 轻微墨色晕染效果 */
+        }
+        .input-group input[type="text"] {
+            width: 95%;
+            padding: 8px;
+            border: 1px solid #777;
+            border-radius: 2px;
+            font-size: 1em;
+            background: #fff;
+            box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 连线题样式 */
+        .matching-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        .matching-table th, .matching-table td {
+            padding: 12px;
+            border: 1px solid #a0a0a0;
+        }
+        .matching-table td:nth-child(2) { text-align: center; }
+        .matching-table input[type="text"] {
+            width: 80%;
+            text-align: center;
+            padding: 5px;
+            border: 1px solid #666;
+        }
+
+        /* 按钮和结果样式 */
+        .controls {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .controls button {
+            padding: 12px 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            background-color: #555; /* 墨黑色按钮 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 0 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .controls button:hover {
+            background-color: #333;
+            transform: translateY(-1px);
+        }
+        #results {
+            margin-top: 40px;
+            padding: 30px;
+            border: 2px solid #5a5a5a;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: none;
+        }
+        .result-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px dashed #a0a0a0;
+        }
+        .correct { color: #28a745; font-weight: bold; } /* 绿色表示正确 */
+        .incorrect { color: #dc3545; font-weight: bold; } /* 红色表示错误 */
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>商务洽谈常用文书：接受和成交 复习考核</h1>
+
+    <form id="quizForm">
+        </form>
+    
+    <div class="controls">
+        <button type="button" onclick="checkAnswers()">提交试卷</button>
+        <button type="button" onclick="window.location.reload()">重新考试</button>
+    </div>
+
+    <div id="results">
+        <h2 class="section-title">结果与解析</h2>
+        </div>
+</div>
+
+<script>
+    // JavaScript 逻辑
+
+    // 题目数据 (基于附件内容)
+    const quizData = {
+        // 一、选择填空
+        'select': [
+            { q: "交易一方表明同意按照发盘或还盘的条件进行交易的行为是？", options: ["订购", "接受", "磋商"], ans: "接受" },
+            { q: "接受信的发出，也就表明双方达成了交易，也就是说，______了。", options: ["谈判", "协商", "成交"], ans: "成交" },
+            { q: "在接受信中，敦促对方______备货或及时开立信用证，以保证合同的履行。", options: ["及早", "马上", "尽快"], ans: "及早" },
+            { q: "“两份一样的正式合同”的商务书面表达是？", options: ["对等文件", "一式两份", "销售副本"], ans: "一式两份" },
+            { q: "______开出，我们将立即告知贵方。", options: ["提单一经", "合同一经", "信用证一经"], ans: "信用证一经" },
+            { q: "“没有错误”的商务书面表达是？", options: ["正确", "无误", "准确"], ans: "无误" },
+            { q: "请贵方会签后退回一份______。", options: ["存档", "备案", "留底"], ans: "存档" },
+            { q: "接受/成交信的内容应包括感谢对方及时处理信函，并______。", options: ["再次还盘", "对对方的报盘或还盘表示接受", "提出新的交易条件"], ans: "对对方的报盘或还盘表示接受" },
+            { q: "我方愿______9月8日的报价与贵方签订订购大米合同。", options: ["参照", "按", "依据"], ans: "按" },
+            { q: "“通知”的商务书面表达是？", options: ["提醒", "告诉", "告知"], ans: "告知" }
+        ],
+        // 二、连线 (答案需打乱)
+        'matching': [
+            { formal: "接受", informal: "交易一方同意按发盘/还盘条件交易" },
+            { formal: "及早", informal: "尽早，越早越好" },
+            { formal: "一经", informal: "一；一旦" },
+            { formal: "备货", informal: "准备货物" },
+            { formal: "无误", informal: "没有错误" },
+            { formal: "存档", informal: "保存档案" },
+            { formal: "告知", informal: "通知" },
+            { formal: "以便", informal: "方便" },
+            { formal: "退回", informal: "寄回" },
+            { formal: "良好", informal: "好；很好；有意义" }
+        ],
+        // 三、组词成句 (答案要求精确匹配，空格和标点简化处理)
+        'rearrange': [
+            { q: "备货 / 对方 / 敦促 / 信中 / 早日 / 成交 /", ans: "在成交信中可以敦促对方早日备货" },
+            { q: "开出 / 伦敦的中国银行 / 信用证 / 已 / 经 / 相关 /", ans: "相关信用证已经伦敦的中国银行开出" },
+            { q: "按时 / 装运期内 / 发货 / 以便 /", ans: "以便在装运期内按时发货" },
+            { q: "愿 / 9月8日的报价 / 按 / 与 / 订购大米合同 / 贵方 / 签订 /", ans: "我方愿按9月8日的报价与贵方签订订购大米合同" },
+            { q: "接受 / 发出 / 表明 / 双方 / 了 / 信的 / 成交 /", ans: "接受信的发出，也就表明双方成交了" },
+            { q: "信中 / 最终 / 各项 / 交易条件 / 确定 / 列明 /", ans: "接受/成交信可以列明最终确定的各项交易条件" },
+            { q: "我们 / 立即 / 告知 / 信用证 / 一经 / 贵方 / 开出 / 将 /", ans: "信用证一经开出，我们将立即告知贵方" },
+            { q: "请 / 审查 / 无误 / 后 / 会签 / 如 /", ans: "如审查无误，请会签后退回一份存档" },
+            { q: "签订 / 合同 / 对方 / 将 / 后 / 写上 / 寄回 / 成交信 /", ans: "对方签订并寄回合同后将写上成交信" },
+            { q: "对以后 / 表达 / 合作 / 的 / 美好愿望 / 长期 /", ans: "表达对以后长期合作的美好愿望" }
+        ]
+    };
+
+    /**
+     * 洗牌函数 (Fisher-Yates shuffle)
+     * @param {Array} array 待打乱的数组
+     */
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    /**
+     * 渲染选择填空题
+     */
+    function renderSelectQuiz() {
+        shuffleArray(quizData.select);
+        const section = document.createElement('div');
+        section.className = 'section';
+        section.innerHTML = '<h2 class="section-title">一、选择填空</h2>';
+        
+        quizData.select.forEach((item, index) => {
+            const qNum = index + 1;
+            const options = [...item.options];
+            shuffleArray(options); 
+            
+            let optionsHtml = '<div class="options">';
+            options.forEach((opt, optIndex) => {
+                const id = `select_${qNum}_${optIndex}`;
+                optionsHtml += `
+                    <label for="${id}">
+                        <input type="radio" id="${id}" name="select_${qNum}" value="${opt}" required>
+                        ${opt}
+                    </label>
+                `;
+            });
+            optionsHtml += '</div>';
+
+            section.innerHTML += `
+                <div class="question-item">
+                    <p class="question-text">${qNum}. ${item.q.replace('______', '<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>')}</p>
+                    ${optionsHtml}
+                </div>
+            `;
+        });
+        document.getElementById('quizForm').appendChild(section);
+    }
+
+    /**
+     * 渲染连线题
+     */
+    function renderMatchingQuiz() {
+        // 连线题需要打乱右侧选项，但左侧题目的顺序也需要打乱，以保证整体随机性
+        shuffleArray(quizData.matching);
+        const formalItems = quizData.matching.map(item => item.formal); // 左侧保持顺序
+        const informalOptions = quizData.matching.map(item => item.informal);
+        shuffleArray(informalOptions); // 右侧解释打乱顺序
+
+        const section = document.createElement('div');
+        section.className = 'section';
+        section.innerHTML = '<h2 class="section-title">二、连线 (填写右侧对应的字母)</h2>';
+        
+        const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        
+        let matchingTableHtml = '<table class="matching-table">';
+        matchingTableHtml += '<tr><th>书面表达</th><th>填写字母</th><th>解释</th></tr>';
+        
+        // 用于查找正确答案
+        const informalMap = {}; 
+        informalOptions.forEach((opt, index) => {
+            informalMap[opt] = alphabet[index];
+        });
+
+        formalItems.forEach((formal, index) => {
+            const qNum = index + 1;
+            const correctItem = quizData.matching.find(item => item.formal === formal);
+            const correctExplanation = correctItem.informal;
+            
+            // 找到正确解释在打乱的右侧列表中的字母
+            const correctLetter = informalMap[correctExplanation];
+
+            matchingTableHtml += `
+                <tr data-formal="${formal}" data-correct-letter="${correctLetter}">
+                    <td>${qNum}. ${formal}</td>
+                    <td><input type="text" name="matching_${qNum}" maxlength="1" style="text-transform: uppercase;" required></td>
+                    <td>${alphabet[index]}. ${informalOptions[index]}</td>
+                </tr>
+            `;
+        });
+
+        matchingTableHtml += '</table>';
+        
+        section.innerHTML += matchingTableHtml;
+        document.getElementById('quizForm').appendChild(section);
+    }
+    
+    /**
+     * 渲染组词成句题
+     */
+    function renderRearrangeQuiz() {
+        shuffleArray(quizData.rearrange);
+        let rearrangeHtml = '<h2 class="section-title">三、组词成句 (请组成一个完整的商务句子)</h2>';
+        
+        quizData.rearrange.forEach((item, index) => {
+            const qNum = index + 1;
+            rearrangeHtml += `
+                <div class="question-item">
+                    <p class="question-text">${qNum}. 词语: ${item.q}</p>
+                    <div class="input-group">
+                        <input type="text" name="rearrange_${qNum}" placeholder="请输入完整的句子" required>
+                    </div>
+                </div>
+            `;
+        });
+        const rearrangeSection = document.createElement('div');
+        rearrangeSection.className = 'section';
+        rearrangeSection.innerHTML = rearrangeHtml;
+        document.getElementById('quizForm').appendChild(rearrangeSection);
+    }
+
+    /**
+     * 初始化练习
+     */
+    function initializeQuiz() {
+        document.getElementById('quizForm').innerHTML = ''; 
+        renderSelectQuiz();
+        renderMatchingQuiz();
+        renderRearrangeQuiz();
+        document.getElementById('results').style.display = 'none';
+    }
+
+    /**
+     * 检查答案
+     */
+    function checkAnswers() {
+        const form = document.getElementById('quizForm');
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '<h2 class="section-title">结果与解析</h2>';
+        resultsDiv.style.display = 'block';
+
+        let correctCount = 0;
+        let totalCount = 0;
+
+        // 辅助函数：标准化文本进行比较（移除所有空格、中文标点，转为小写）
+        const normalize = (text) => text.replace(/[\s\uff0c\uff1b\uff01\uff1f\uff1a\uff08\uff09\uff0e\u3002]/g, '').toLowerCase().trim();
+
+        // 1. 选择填空
+        quizData.select.forEach((item, index) => {
+            const qNum = index + 1;
+            const selected = form.querySelector(`input[name="select_${qNum}"]:checked`);
+            const isCorrect = selected && selected.value === item.ans;
+            const statusClass = isCorrect ? 'correct' : 'incorrect';
+            const resultHtml = `
+                <div class="result-item">
+                    <span class="${statusClass}">【题${qNum} - 选择填空】</span> 
+                    <strong>${isCorrect ? '✔' : '✘'}</strong><br>
+                    题目: ${item.q}<br>
+                    你的回答: ${selected ? selected.value : '未作答'}<br>
+                    标准答案: ${item.ans}
+                </div>
+            `;
+            resultsDiv.innerHTML += resultHtml;
+            if (isCorrect) correctCount++;
+            totalCount++;
+        });
+
+        // 2. 连线题
+        const matchingRows = form.querySelectorAll('.matching-table tr:not(:first-child)');
+        matchingRows.forEach((row, index) => {
+            const qNum = index + 1;
+            const userAnswer = row.querySelector(`input[name="matching_${qNum}"]`).value.toUpperCase();
+            const correctLetter = row.getAttribute('data-correct-letter');
+            const formalPart = row.getAttribute('data-formal');
+            
+            const isCorrect = userAnswer === correctLetter;
+            const statusClass = isCorrect ? 'correct' : 'incorrect';
+            
+            const correctItem = quizData.matching.find(item => item.formal === formalPart);
+
+            const resultHtml = `
+                <div class="result-item">
+                    <span class="${statusClass}">【题${qNum} - 连线】</span> 
+                    <strong>${isCorrect ? '✔' : '✘'}</strong><br>
+                    题目: ${formalPart}<br>
+                    你的回答: ${userAnswer}<br>
+                    标准对应: ${correctItem.informal} (应填 ${correctLetter})
+                </div>
+            `;
+            resultsDiv.innerHTML += resultHtml;
+            if (isCorrect) correctCount++;
+            totalCount++;
+        });
+
+        // 3. 组词成句
+        quizData.rearrange.forEach((item, index) => {
+            const qNum = index + 1;
+            const input = form.querySelector(`input[name="rearrange_${qNum}"]`);
+            const userAnswer = input.value;
+            const isCorrect = normalize(userAnswer) === normalize(item.ans);
+            const statusClass = isCorrect ? 'correct' : 'incorrect';
+            const resultHtml = `
+                <div class="result-item">
+                    <span class="${statusClass}">【题${qNum} - 组词成句】</span> 
+                    <strong>${isCorrect ? '✔' : '✘'}</strong><br>
+                    词语: ${item.q}<br>
+                    你的回答: ${userAnswer}<br>
+                    标准答案: ${item.ans}
+                </div>
+            `;
+            resultsDiv.innerHTML += resultHtml;
+            if (isCorrect) correctCount++;
+            totalCount++;
+        });
+
+        // 最终得分
+        const finalScoreHtml = `
+            <h3>⭐ 最终得分：<span class="${correctCount >= totalCount * 0.8 ? 'correct' : 'incorrect'}">${correctCount} / ${totalCount}</span></h3>
+            <p>请仔细核对错误答案，巩固商务书面表达。</p>
+            <hr>
+        `;
+        resultsDiv.innerHTML = finalScoreHtml + resultsDiv.innerHTML;
+        
+        window.scrollTo(0, 0); 
+    }
+
+    // 页面加载完成后初始化
+    window.onload = initializeQuiz;
+
+</script>
+</body>
+</html>
